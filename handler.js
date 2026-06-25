@@ -14,6 +14,10 @@ Game.FileSymlinkExclusions = [
   "xinput9_1_0.dll",
   "xinputplus.ini",
   "hmw-mod.exe",
+  "favourites.json",
+  "history.json",
+  "hmwcdta",
+  "hmwdta",
   "keys_mp.cfg",
   "config_mp.cfg",
   "config_mp.cfg",
@@ -310,6 +314,10 @@ Game.Play = function() {
   if (!System.IO.Directory.Exists(players2)) {
     System.IO.Directory.CreateDirectory(players2);
   }
+  var players2User = players2 + "\\user";
+  if (!System.IO.Directory.Exists(players2User)) {
+    System.IO.Directory.CreateDirectory(players2User);
+  }
 
   var rootPlayers2 = System.IO.Path.Combine(Context.RootInstallFolder, "players2");
   var basePlayerFiles = ["settings_c.zip.h1", "settings_m.zip.h1", "keys_mp.cfg", "config_mp.cfg"];
@@ -320,6 +328,28 @@ Game.Play = function() {
       System.IO.File.Copy(origin, target, true);
     }
   }
+
+  function ensureLocalPlayerFile(relativePath, defaultText) {
+    var targetPath = System.IO.Path.Combine(players2, relativePath);
+    var originPath = System.IO.Path.Combine(rootPlayers2, relativePath);
+    var targetDir = System.IO.Directory.GetParent(targetPath).FullName;
+    if (!System.IO.Directory.Exists(targetDir)) {
+      System.IO.Directory.CreateDirectory(targetDir);
+    }
+
+    if (!System.IO.File.Exists(targetPath)) {
+      if (System.IO.File.Exists(originPath)) {
+        System.IO.File.Copy(originPath, targetPath, true);
+      } else {
+        System.IO.File.WriteAllText(targetPath, defaultText);
+      }
+    }
+  }
+
+  ensureLocalPlayerFile("favourites.json", "[]");
+  ensureLocalPlayerFile("history.json", "[]");
+  ensureLocalPlayerFile("user\\hmwcdta", "");
+  ensureLocalPlayerFile("user\\hmwdta", "");
 
   var Mus = "No";
   var FOV = "-";
