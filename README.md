@@ -2,7 +2,7 @@
 
 Custom Nucleus Co-op handler for HorizonMW / Call of Duty: Modern Warfare Remastered, based on birden's Modern Warfare Remastered handler.
 
-## Current Known-Good 6-Instance Setup
+## Current Known-Good Setup
 
 This setup was tested on:
 
@@ -12,11 +12,14 @@ This setup was tested on:
 - Displays: two 1920x1080 displays
 - Layout target: 6 total instances, commonly 4 players on one screen and 2 players on the other
 
-The current performance target is stable 60 FPS per instance.
+The handler now switches graphics automatically based on player count:
 
-## Current Performance Settings
+- 4 players or fewer: 1920x1080, 120 FPS cap, higher visual settings.
+- 5 players or more: 1920x1080, 60 FPS cap, performance settings for stable 6-instance play.
 
-The handler forces these settings on launch so the setup can be recreated:
+Nucleus' Low/Medium/High graphics preset still affects texture/AA style options, but the important player-count settings below are forced by the handler on every launch.
+
+## 5+ Player Performance Mode
 
 ```cfg
 seta cg_infobar_fps "1"
@@ -50,11 +53,45 @@ seta r_picmip_spec "3"
 seta r_postAA "FXAA"
 ```
 
+## 4 Player Quality Mode
+
+```cfg
+seta cg_infobar_fps "1"
+seta com_maxfps "120"
+seta r_vsync "0"
+seta r_mode "1920x1080"
+seta r_dlightForceLimit "2"
+seta r_texFilterAnisoMin "1"
+seta r_texFilterAnisoMax "4"
+seta sm_enable "1"
+seta sm_tileResolution "Low"
+seta sm_maxLightsWithShadows "1"
+seta fx_marks "1"
+seta fx_marks_smodels "1"
+seta fx_marks_ents "1"
+seta fx_flare "1"
+seta cg_brass "1"
+seta ragdoll_enable "1"
+seta ragdoll_mp_limit "16"
+seta ragdoll_max_simulating "16"
+seta ai_corpseLimit "16"
+seta r_drawWater "1"
+seta r_dof_limit "0"
+seta r_mbLimit "0"
+seta r_ssaoLimit "0"
+seta r_mdaoLimit "0"
+seta r_sssLimit "0"
+seta r_picmip "3"
+seta r_picmip_bump "3"
+seta r_picmip_spec "3"
+seta r_postAA "FXAA"
+```
+
 ## Important Notes
 
 - `r_mode "1920x1080"` is the current working quality/performance point.
-- Shadows, water, ragdolls, brass, flares, and impact marks are disabled for 6-instance stability.
-- FPS is capped at 60 to avoid wasting GPU headroom.
+- In 6-player mode, shadows, water, ragdolls, brass, flares, and impact marks are disabled for stability.
+- In 4-player mode, shadows/effects/water/ragdolls are partially restored and FPS is capped at 120.
 - FPS counter is enabled with `cg_infobar_fps "1"`.
 - Sniper scope blur is fixed with `r_dof_limit "0"`.
 
