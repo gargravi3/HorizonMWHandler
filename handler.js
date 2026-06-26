@@ -49,7 +49,7 @@ Game.UseGoldberg = false;
 Game.SupportsPositioning = true;
 Game.ForceFinishOnPlay = false;
 Game.Hook.ForceFocus = false;
-Game.Hook.ForceFocusWindowName = "Call of Duty®: Modern Warfare® Remastered Multiplayer";
+Game.Hook.ForceFocusWindowName = "Call of Duty: Modern Warfare Remastered Multiplayer";
 Game.HasDynamicWindowTitle = false;
 Game.FakeFocus = false;
 Game.HookFocus = false;
@@ -437,13 +437,29 @@ Game.Play = function() {
 
   var cfgLines = [
     Context.FindLineNumberInTextFile(txtPath, "seta name", Nucleus.SearchType.StartsWith) + '|seta name "' + nickname + '"',
+    Context.FindLineNumberInTextFile(txtPath, "seta cg_infobar_fps", Nucleus.SearchType.StartsWith) + '|seta cg_infobar_fps "1"',
+    Context.FindLineNumberInTextFile(txtPath, "seta com_maxfps", Nucleus.SearchType.StartsWith) + '|seta com_maxfps "60"',
+    Context.FindLineNumberInTextFile(txtPath, "seta r_vsync", Nucleus.SearchType.StartsWith) + '|seta r_vsync "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta sm_enable", Nucleus.SearchType.StartsWith) + '|seta sm_enable "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta sm_tileResolution", Nucleus.SearchType.StartsWith) + '|seta sm_tileResolution "Low"',
+    Context.FindLineNumberInTextFile(txtPath, "seta sm_maxLightsWithShadows", Nucleus.SearchType.StartsWith) + '|seta sm_maxLightsWithShadows "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta fx_marks", Nucleus.SearchType.StartsWith) + '|seta fx_marks "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta fx_marks_smodels", Nucleus.SearchType.StartsWith) + '|seta fx_marks_smodels "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta fx_marks_ents", Nucleus.SearchType.StartsWith) + '|seta fx_marks_ents "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta fx_flare", Nucleus.SearchType.StartsWith) + '|seta fx_flare "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta cg_brass", Nucleus.SearchType.StartsWith) + '|seta cg_brass "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta ragdoll_enable", Nucleus.SearchType.StartsWith) + '|seta ragdoll_enable "0"',
+    Context.FindLineNumberInTextFile(txtPath, "seta ragdoll_mp_limit", Nucleus.SearchType.StartsWith) + '|seta ragdoll_mp_limit "8"',
+    Context.FindLineNumberInTextFile(txtPath, "seta ragdoll_max_simulating", Nucleus.SearchType.StartsWith) + '|seta ragdoll_max_simulating "8"',
+    Context.FindLineNumberInTextFile(txtPath, "seta ai_corpseLimit", Nucleus.SearchType.StartsWith) + '|seta ai_corpseLimit "8"',
+    Context.FindLineNumberInTextFile(txtPath, "seta r_drawWater", Nucleus.SearchType.StartsWith) + '|seta r_drawWater "0"',
     Context.FindLineNumberInTextFile(txtPath, "seta 0x6E536C59", Nucleus.SearchType.StartsWith) + '|seta 0x6E536C59 "' + Context.Width + '"',
     Context.FindLineNumberInTextFile(txtPath, "seta 0xF5470D48", Nucleus.SearchType.StartsWith) + '|seta 0xF5470D48 "' + Context.Height + '"',
     Context.FindLineNumberInTextFile(txtPath, "seta r_aspectRatio", Nucleus.SearchType.StartsWith) + '|seta r_aspectRatio "auto"',
     Context.FindLineNumberInTextFile(txtPath, "seta r_dof_limit", Nucleus.SearchType.StartsWith) + '|seta r_dof_limit "0"',
     Context.FindLineNumberInTextFile(txtPath, "seta r_fullscreen", Nucleus.SearchType.StartsWith) + '|seta r_fullscreen "0"',
     Context.FindLineNumberInTextFile(txtPath, "seta r_fullscreenWindow", Nucleus.SearchType.StartsWith) + '|seta r_fullscreenWindow "0"',
-    Context.FindLineNumberInTextFile(txtPath, "seta r_mode", Nucleus.SearchType.StartsWith) + '|seta r_mode "' + Context.Width + "x" + Context.Height + '"',
+    Context.FindLineNumberInTextFile(txtPath, "seta r_mode", Nucleus.SearchType.StartsWith) + '|seta r_mode "1920x1080"',
     Context.FindLineNumberInTextFile(txtPath, "seta cg_unlockall_items", Nucleus.SearchType.StartsWith) + '|seta cg_unlockall_items "1"',
     Context.FindLineNumberInTextFile(txtPath, "seta cg_unlockall_classes", Nucleus.SearchType.StartsWith) + '|seta cg_unlockall_classes "1"',
     Context.FindLineNumberInTextFile(txtPath, "seta cg_unlockall_loot", Nucleus.SearchType.StartsWith) + '|seta cg_unlockall_loot "1"',
@@ -452,7 +468,7 @@ Game.Play = function() {
 
   if (graphicsPreset != "Current") {
     var picmip = "3";
-    var dlightLimit = "2";
+    var dlightLimit = "0";
     var blurLimit = "0";
     var ssaoLimit = "0";
     var mdaoLimit = "0";
