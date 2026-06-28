@@ -6,7 +6,7 @@ Hub.Maintainer.Id = "rRycxSn253ZCjQy5C";
 var graphicsOptions = ["Low", "Medium", "High", "Current"];
 Game.AddOption("Graphics preset", "Low is the default for better split-screen performance. Current keeps your existing config values.", "gfx", graphicsOptions);
 
-Game.DirSymlinkExclusions = ["players2", "per_player"];
+Game.DirSymlinkExclusions = ["players2"];
 Game.FileSymlinkExclusions = [
   "XInputPlus.ini",
   "xinput1_3.dll",
@@ -28,7 +28,7 @@ Game.FileSymlinkExclusions = [
   "commondata",
   "mpdata"
 ];
-Game.FileSymlinkCopyInstead = ["steam_api.dll", "steam_api.ini", "h1_sp64_ship.exe", "Steam.dll", "steam_api.dll", "steam_api64.dll", "SteamAPIUpdater.dll", "steamclient.dll", "XGamepad.dll", "i_h2_ghillie_arms_c.png", "i_h2_ghillie_arms_n.png"];
+Game.FileSymlinkCopyInstead = ["steam_api.dll", "steam_api.ini", "h1_sp64_ship.exe", "Steam.dll", "steam_api.dll", "steam_api64.dll", "SteamAPIUpdater.dll", "steamclient.dll", "XGamepad.dll"];
 Game.GameName = "HorizonMW Modern Warfare Remastered";
 Game.HandlerInterval = 100;
 Game.SymlinkExe = false;
@@ -428,20 +428,6 @@ Game.Play = function() {
   var nickname = Context.PlayerID < playerNames.length ? playerNames[Context.PlayerID] : Context.Nickname;
   if (!nickname || nickname == "") {
     nickname = "Player" + (Context.PlayerID + 1);
-  }
-
-  // Per-player ghillie textures (Player 2+)
-  if (Context.PlayerID > 0 && Context.PlayerID < playerNames.length) {
-    var perPlayerSrcDir = Context.RootInstallFolder + "\\images\\per_player\\" + playerNames[Context.PlayerID];
-    var perPlayerDestDir = Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\images";
-    var ghillieFiles = ["i_h2_ghillie_arms_c.png", "i_h2_ghillie_arms_n.png"];
-    for (var g = 0; g < ghillieFiles.length; g++) {
-      var ghillieSrc = perPlayerSrcDir + "\\" + ghillieFiles[g];
-      var ghillieDest = perPlayerDestDir + "\\" + ghillieFiles[g];
-      if (System.IO.File.Exists(ghillieSrc)) {
-        System.IO.File.Copy(ghillieSrc, ghillieDest, true);
-      }
-    }
   }
 
   var graphicsPreset = Context.Options["gfx"];
