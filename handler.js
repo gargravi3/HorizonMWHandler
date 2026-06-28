@@ -218,6 +218,10 @@ Game.Play = function() {
   Context.StartArguments = args;
 
   if (Context.PlayerID == 0) {
+    var monitorBat = "C:\\Nucleus\\StartMonitor.bat";
+    if (System.IO.File.Exists(monitorBat)) {
+      Context.RunAdditionalFiles([monitorBat], false, 0);
+    }
     var hmwConnectHotkey = Context.ScriptFolder + "\\HMWConnectHotkey.bat";
     if (System.IO.File.Exists(hmwConnectHotkey)) {
       Context.RunAdditionalFiles([hmwConnectHotkey], false, 0);
