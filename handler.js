@@ -75,8 +75,8 @@ Game.StartArguments = "-nosteam -multiplayer";
 Game.HideTaskbar = true;
 Game.UseForceBindIP = false;
 Game.ForceBindIPNoDummy = false;
-Game.PauseBetweenStarts = 20;
-Game.PauseBetweenProcessGrab = 45;
+Game.PauseBetweenStarts = 10;
+Game.PauseBetweenProcessGrab = 30;
 Game.UserProfileConfigPath = "AppData\\Local\\hmw-mod";
 Game.UserProfileConfigPathNoCopy = true;
 Game.Description =
@@ -213,6 +213,7 @@ Game.ProtoInput.OnInputUnlocked = function() {
 //here
 Game.Play = function() {
   Game.ExecutableName = "hmw-mod.exe";
+
   var args = "-nosteam -multiplayer +set net_port " + (27016 + Context.PlayerID * 2) + " +set r_dof_limit 0";
   Game.StartArguments = args;
   Context.StartArguments = args;
