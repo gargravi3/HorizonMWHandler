@@ -424,6 +424,26 @@ Game.Play = function() {
   }
 
   var txtPath = Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\players2\\config_mp.cfg";
+
+  var requiredDefaults = [
+    'seta sm_tileResolution "Low"',
+    'seta ai_corpseLimit "16"',
+    'seta r_fullscreen "0"',
+    'seta r_fullscreenWindow "0"',
+    'seta r_dlightForceLimit "2"',
+    'seta r_mbLimit "0"',
+    'seta r_ssaoLimit "0"',
+    'seta r_mdaoLimit "0"',
+    'seta r_sssLimit "0"'
+  ];
+  for (var d = 0; d < requiredDefaults.length; d++) {
+    var dvarName = requiredDefaults[d].split('"')[0].trim();
+    var lineNum = Context.FindLineNumberInTextFile(txtPath, dvarName, Nucleus.SearchType.StartsWith);
+    if (lineNum == null || lineNum < 0) {
+      System.IO.File.AppendAllText(txtPath, "\r\n" + requiredDefaults[d]);
+    }
+  }
+
   var playerNames = ["Ravi", "Vikram", "Krish", "Noah"];
   var nickname = Context.PlayerID < playerNames.length ? playerNames[Context.PlayerID] : Context.Nickname;
   if (!nickname || nickname == "") {
