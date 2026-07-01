@@ -6,6 +6,9 @@ Hub.Maintainer.Id = "rRycxSn253ZCjQy5C";
 var graphicsOptions = ["Low", "Medium", "High", "Current"];
 Game.AddOption("Graphics preset", "Low is the default for better split-screen performance. Current keeps your existing config values.", "gfx", graphicsOptions);
 
+var fpsOptions = ["60", "90", "120", "144", "240", "Unlimited"];
+Game.AddOption("Max FPS", "FPS cap for all instances. 60 is recommended for 5+ players. Unlimited removes the cap.", "maxfps", fpsOptions);
+
 Game.DirSymlinkExclusions = ["players2"];
 Game.FileSymlinkExclusions = [
   "XInputPlus.ini",
@@ -426,6 +429,10 @@ Game.Play = function() {
   var txtPath = Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\players2\\config_mp.cfg";
   var nickname = "Player" + (Context.PlayerID + 1);
 
+  var fpsChoice = Context.Options["maxfps"];
+  if (!fpsChoice || fpsChoice == "") { fpsChoice = "60"; }
+  var maxFps = fpsChoice == "Unlimited" ? "0" : fpsChoice;
+
   var graphicsPreset = Context.Options["gfx"];
   if (!graphicsPreset || graphicsPreset == "") {
     graphicsPreset = "Low";
@@ -434,7 +441,7 @@ Game.Play = function() {
   var cfgLines = [
     Context.FindLineNumberInTextFile(txtPath, "seta name", Nucleus.SearchType.StartsWith) + '|seta name "' + nickname + '"',
     Context.FindLineNumberInTextFile(txtPath, "seta cg_infobar_fps", Nucleus.SearchType.StartsWith) + '|seta cg_infobar_fps "1"',
-    Context.FindLineNumberInTextFile(txtPath, "seta com_maxfps", Nucleus.SearchType.StartsWith) + '|seta com_maxfps "60"',
+    Context.FindLineNumberInTextFile(txtPath, "seta com_maxfps", Nucleus.SearchType.StartsWith) + '|seta com_maxfps "' + maxFps + '"',
     Context.FindLineNumberInTextFile(txtPath, "seta r_vsync", Nucleus.SearchType.StartsWith) + '|seta r_vsync "0"',
     Context.FindLineNumberInTextFile(txtPath, "seta sm_enable", Nucleus.SearchType.StartsWith) + '|seta sm_enable "0"',
     Context.FindLineNumberInTextFile(txtPath, "seta sm_tileResolution", Nucleus.SearchType.StartsWith) + '|seta sm_tileResolution "Low"',
